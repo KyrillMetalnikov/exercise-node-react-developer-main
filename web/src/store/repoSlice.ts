@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../app/store';
 import { Repo } from '../../../api/src/models/Repo';
-import { getRepo } from '../utils/utils';
+import { getRepo, sortByDateReverse } from '../utils/utils';
 
 export interface RepoState {
   repos: Repo[];
@@ -13,7 +13,9 @@ const initialState: RepoState = {
 
 export const getReposAsync = createAsyncThunk('repo/getRepos', async () => {
   const response = await getRepo();
-  console.log(response.status);
+  response.data.sort(function (a, b) {
+    return sortByDateReverse(b, a);
+  });
   return response.data;
 });
 

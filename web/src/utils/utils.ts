@@ -6,3 +6,10 @@ export async function getRepo() {
 
   return axios.get<Repo[]>(URL);
 }
+
+export function sortByDateReverse(a: Repo, b: Repo) {
+  const firstDate = new Date(a.created_at);
+  const secondDate = new Date(b.created_at);
+
+  return firstDate.getTime() - secondDate.getTime();
+}
