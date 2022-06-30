@@ -7,7 +7,6 @@ export function DisplaySingleRepo(repo: Repo) {
       <li>Description: {repo.description}</li>
       <li>Language: {repo.language}</li>
       <li>Fork Count: {repo.forks_count}</li>
-      <li>Created at: {repo.created_at}</li>
     </ul>
   );
 }

@@ -13,3 +13,12 @@ export function sortByDateReverse(a: Repo, b: Repo) {
 
   return firstDate.getTime() - secondDate.getTime();
 }
+
+export function findAllLanguages(repos: Repo[]) {
+  const uniqueLanguages = new Set<string>();
+  for (let i = 0; i < repos.length; i++) {
+    uniqueLanguages.add(repos[i].language);
+  }
+
+  return Array.from(uniqueLanguages);
+}
