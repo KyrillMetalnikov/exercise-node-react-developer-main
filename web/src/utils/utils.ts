@@ -22,3 +22,11 @@ export function findAllLanguages(repos: Repo[]) {
 
   return Array.from(uniqueLanguages);
 }
+
+export function isEmptyObject(obj: Repo) {
+  if (Object.keys(obj).length === 0) {
+    return true;
+  } else {
+    return false;
+  }
+}

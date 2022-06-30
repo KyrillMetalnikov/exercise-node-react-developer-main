@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../app/store';
 import { Repo } from '../../../api/src/models/Repo';
 import { getRepo, sortByDateReverse } from '../utils/utils';
+import { AxiosResponse } from 'axios';
 
 export interface RepoState {
   repos: Repo[];
@@ -12,8 +13,19 @@ const initialState: RepoState = {
 };
 
 export const getReposAsync = createAsyncThunk('repo/getRepos', async () => {
-  const response = await getRepo();
-  response.data.sort(function (a, b) {
+  let finished = false;
+  let response = {} as AxiosResponse;
+  while (!finished) {
+    try {
+      response = await getRepo();
+      if (response.status === 200) {
+        finished = true;
+      }
+    } catch {
+      console.log('Retrying Get Request');
+    }
+  }
+  response.data.sort(function (a: Repo, b: Repo) {
     return sortByDateReverse(b, a);
   });
   return response.data;
